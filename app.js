@@ -1,16 +1,35 @@
 const express = require('express')
-const app = express()
-const port = 8080;
+const hbs = require('hbs');
+require('dotenv').config();
+
+const app = express();
+const port = process.env.port;
+
+//HBS
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials', (err)=>{});
+
 
 app.use(express.static('public'));
 
-
+app.get('/', (req, res) =>  {
+    res.render('home',{
+        nombre: 'Franco Bayugar',
+        titulo: 'Curso de node'
+    });
+});
 app.get('/generic', (req, res) =>  {
-    res.sendFile(__dirname + '/public/generic.html');
+    res.render('generic',{
+        nombre: 'Franco Bayugar',
+        titulo: 'Curso de node'
+    });
 });
 
 app.get('/elements', (req, res) =>  {
-    res.sendFile(__dirname + '/public/elements.html');
+    res.render('elements',{
+        nombre: 'Franco Bayugar',
+        titulo: 'Curso de node'
+    });
 });
 
 
